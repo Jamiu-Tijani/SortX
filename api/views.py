@@ -12,9 +12,10 @@ from bs4 import BeautifulSoup
 import requests
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
-
+from django.contrib.auth.hashers import make_password
 from .stores.ekonga import *
 from .stores.jumia import *
+from .models import Users
 
 
 
@@ -58,7 +59,24 @@ def action(request):
         print(e)
         return HttpResponse(e)
 
-
+@api_view(['GET'])
+def user_create(request):
+    try :
+        email = request.GET.__getitem__('email')
+        username = request.GET.__getitem__('username')
+        password = request.GET.__getitem__('password')
+        Users.objects.create(email = email,password = password,username = username)
+        Users.save
+        
+        context = { "message": "User Registered Successfully"
+        
+        }
+        return Response(context)
+    
+    except Exception as e:
+        print(e)
+    
+        return HttpResponse(e)
 
 
 def index(request):
@@ -66,3 +84,7 @@ def index(request):
     context = {}
     return render(request,'index.html')
 
+def index2(request):
+
+    context = {}
+    return render(request,'create.html')

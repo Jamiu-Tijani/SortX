@@ -5,3 +5,4 @@ from .models import *
 
 #admin.site.register(ekongaa)
 admin.site.register(jumiaa)
+admin.site.register(Users)
