@@ -7,18 +7,22 @@ def jumia(query):
     dat = response.text
     soup = BeautifulSoup(dat,'html.parser')
     a = soup.find_all("a",{"class":"core"})
-    for x in a:
-        if 'Accessories'.lower() not in str(x.get('data-category')).lower():
-            title = str(x.get('data-name'))
-            img = str(x.find('img').get('data-src'))
-            link ="https://jumia.com.ng" + str(x.get('href'))
-            price= "na"
-            for child in x.find('div',{'class':'prc'}).children:
-                price= child
-        else:
-            title = "NA"
-            img = "NA"
-            link ="NA"
-            price = "NA"
+    try:
+        for x in a:
+            if 'Accessories'.lower() not in str(x.get('data-category')).lower():
+                title = str(x.get('data-name'))
+                img = str(x.find('img').get('data-src'))
+                link ="https://jumia.com.ng" + str(x.get('href'))
+                price= "na"
+                for child in x.find('div',{'class':'prc'}).children:
+                    price= child
+            else:
+                title = "NA"
+                img = "NA"
+                link ="NA"
+                price = "NA"
+    except Exception as e:
+        error = e
+        return error
                     
     return title, img,link, price

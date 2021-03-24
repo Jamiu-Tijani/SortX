@@ -23,18 +23,15 @@ def action(request):
         query = request.GET.__getitem__('query')
         url = "https://www.konga.com/search?search="
         url = url+query
-    except Exception as e :
-        print(e)
-    finally :
         token, agent = cfscrape.get_tokens(url, 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36 RuxitSynthetic/1.0 v6870249674 t38550 ath9b965f92 altpub cvcv=2, _optional_')
         jumia_title, jumia_img,jumia_link, jumia_price = jumia(query)
         ekonga_title, ekonga_img,ekonga_link,ekonga_price = ekonga(query)
-        
-        context = {'jumia':
-            {'img' :jumia_img,
+        context ={'jumia': {
+             'img' :jumia_img,
             'title': jumia_title,
             'price': jumia_price,
             "link" : jumia_link},
+            
             "ekonga":{
             "img":ekonga_img,
             "title" :ekonga_title,
@@ -50,7 +47,14 @@ def action(request):
         }
         pass
 
-    return Response(return_object)
+        return Response(return_object)
+        
+    
+    except Exception as e :
+        print(e)
+        return HttpResponse(e)
+
+
 
 
 def index(request):
