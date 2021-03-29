@@ -10,14 +10,18 @@ from rest_framework import status, views
 from .models import *
 from bs4 import BeautifulSoup
 import requests
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 from .stores.ekonga import *
 from .stores.jumia import *
 
 
 
-from rest_framework.decorators import api_view
+from rest_framework.decorators import *
 @api_view(['GET'])
+#@authentication_classes([SessionAuthentication, BasicAuthentication])
+#@permission_classes([IsAuthenticated])
 def action(request):
     try :
         query = request.GET.__getitem__('query')

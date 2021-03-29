@@ -16,9 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from rest_framework.urlpatterns import format_suffix_patterns
-from api import views
+from rest_framework.authtoken import views
 from django.conf.urls import url
 from api import urls
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls), ] + urls.urlpatterns
+    url(r'^admin/', admin.site.urls),
+    url(r'^api-token-auth/',views.obtain_auth_token,name = "api-token-auth")
+ ] + urls.urlpatterns
